@@ -15,13 +15,13 @@ function plugin_printercountersummary_install()
     // Création de la table uniquement lors de la première installation
     if (!$DB->tableExists("glpi_plugin_printercountersummary_profiles")) 
         {
-
         // requête de création de la table    
         $query = "CREATE TABLE `glpi_plugin_printercountersummary_profiles` (
-                    `id` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_profiles (id)',
-                    `right` char(1) collate utf8_unicode_ci default NULL,
-                    PRIMARY KEY  (`id`)
-                  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+                `id` int(11) UNSIGNED NOT NULL default '0' COMMENT 'RELATION to glpi_profiles (id)',
+                `right` char(1) collate utf8_unicode_ci default NULL,
+                PRIMARY KEY  (`id`)
+            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+
 
         $DB->query($query) or die($DB->error());
 
