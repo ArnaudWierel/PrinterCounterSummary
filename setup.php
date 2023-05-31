@@ -63,5 +63,9 @@ function plugin_init_printercountersummary()
     Plugin::registerClass('PluginPrinterCounterSummary', array('addtabon' => array('Computer')));
     Plugin::registerClass('PluginPrinterCounterSummaryProfile', array('addtabon' => array('Profile')));
     Plugin::registerClass('PluginPrinterCounterSummaryConfig');
+
+    Plugin::registerClass('PluginPrinterCounterSummaryReport', [
+        'addtabon' => 'Tool'
+    ]);
 } 
 ?>
