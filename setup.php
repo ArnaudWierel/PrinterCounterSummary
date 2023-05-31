@@ -58,8 +58,8 @@ function plugin_init_printercountersummary()
 {
     global $PLUGIN_HOOKS;
 
-    $PLUGIN_HOOKS['csrf_compliant']['PluginPrinterCounterSummary'] = true;
-    $PLUGIN_HOOKS['config_page']['PluginPrinterCounterSummary'] = 'front/config.form.php';
+    $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
+    $PLUGIN_HOOKS['config_page']['printercountersummary'] = 'front/config.form.php';
     Plugin::registerClass('PluginPrinterCounterSummary', array('addtabon' => array('Computer')));
     Plugin::registerClass('PluginPrinterCounterSummaryProfile', array('addtabon' => array('Profile')));
     Plugin::registerClass('PluginPrinterCounterSummaryConfig');
