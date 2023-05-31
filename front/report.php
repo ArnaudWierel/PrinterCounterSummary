@@ -1,5 +1,5 @@
 <?php
-/*include ('../../../inc/includes.php');
+include ('../../../inc/includes.php');
 
 // Vérifier si l'utilisateur est connecté et a les autorisations nécessaires
 Session::checkRight("plugin_printercountersummary", READ);
