@@ -13,7 +13,7 @@ function plugin_printercountersummary_install()
     global $DB;
     
     // Création de la table uniquement lors de la première installation
-    if (!TableExists("glpi_plugin_printercountersummary_profiles")) 
+    if (!$DB->tableExists("glpi_plugin_printercountersummary_profiles")) 
         {
 
         // requête de création de la table    
