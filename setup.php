@@ -99,7 +99,7 @@ function plugin_printercountersummary_options() {
 function plugin_printercountersummary_getMenuContent() {
     return array(
         'title' => __("Printer Counter Summary", 'printercountersummary'),
-        'page'  => "/plugins/PrinterCounterSummary/front/printercountersummaryuserpage.php",
+        'page'  => "/plugins/PrinterCounterSummary/front/printercountersummary.php",
         'icon'  => 'printercountersummary',
         'menu'  => 'plugins'
     );
