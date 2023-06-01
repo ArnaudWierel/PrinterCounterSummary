@@ -1,6 +1,6 @@
 <?php
 
-include ("../../../inc/includes.php");
+//include ("../../../inc/includes.php");
 
 Html::header(__("Printer Counter Summary", "printercountersummary"), $_SERVER['PHP_SELF'], "plugins",
              "printercountersummary", "printercountersummary");
