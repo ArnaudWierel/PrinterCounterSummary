@@ -11,7 +11,7 @@ Html::header(
 );
 
 echo '<div class="center">';
-//echo '<h2>' . __('Welcome to the Printer Counter Summary plugin!', 'printercountersummary') . '</h2>';
+echo '<h2>' . __('Welcome to the Printer Counter Summary plugin!', 'printercountersummary') . '</h2>';
 echo '</div>';
 
-//Html::footer();
+Html::footer();
