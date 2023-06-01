@@ -40,9 +40,13 @@ function plugin_version_PrinterCouterSummary() {
       'license'        => 'GLPv3',
       'homepage'       => 'https://github.com/ArnaudWierel/PrinterCounterSummary',
       'requirements'   => [
-         'glpi'   => [
-            'min' => '10.0.2',
-         ]
+        'glpi'   => [
+            'min' => '10.0.2'
+        ],
+        'php'    => [
+                'min' => '7.4',
+                'max' => '8.19'
+        ]
       ]
    ];
 }
