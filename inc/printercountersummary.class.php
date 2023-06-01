@@ -5,5 +5,13 @@ if (!defined('GLPI_ROOT')) {
 }
 
 class PluginPrinterCounterSummary extends CommonDBTM {
-
+    static function getMenuContent() {
+        return array(
+            'title' => __("Printer Counter Summary", 'printercountersummary'),
+            'page'  => "/plugins/printercountersummary/front/printercountersummary.php",
+            'icon'  => 'printercountersummary',
+            'menu'  => 'plugins'
+        );
+    }
 }
+

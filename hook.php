@@ -11,6 +11,8 @@
 |                                                                                                                 |___/  |
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
+include_once('inc/printercountersummary.class.php');
+
 /**
  * Install hook
  *

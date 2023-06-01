@@ -12,6 +12,8 @@
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 define('PRINTERCOUNTERSUMMARY_VERSION', '1.0.0');
+include_once('inc/printercountersummary.class.php');
+
 
 /**
  * Init the hooks of the plugins - Needed
@@ -24,7 +26,7 @@ function plugin_init_printercountersummary() {
    //required!
     $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
     $PLUGIN_HOOKS['menu_toadd']['printercountersummary'] = array('tools' => 'PluginPrinterCounterSummary');
-    Plugin::registerClass('PrinterCounterSummary');
+    Plugin::registerClass('PluginPrinterCounterSummary');
    //some code here, like call to Plugin::registerClass(), populating PLUGIN_HOOKS, ...
 }
 
@@ -94,13 +96,4 @@ function plugin_printercountersummary_options() {
    return [
       Plugin::OPTION_AUTOINSTALL_DISABLED => true,
    ];
-}
-
-function plugin_printercountersummary_getMenuContent() {
-    return array(
-        'title' => __("Printer Counter Summary", 'printercountersummary'),
-        'page'  => "/plugins/PrinterCounterSummary/front/printercountersummary.php",
-        'icon'  => 'printercountersummary',
-        'menu'  => 'plugins'
-    );
 }
