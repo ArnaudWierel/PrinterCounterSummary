@@ -16,7 +16,7 @@
  *
  * @return boolean
  */
-function plugin_myexample_install() {
+function plugin_printercountersummary_install() {
    // je n'es pas besoin de bdd pour mon plugin
    return true;
 }
@@ -26,7 +26,7 @@ function plugin_myexample_install() {
  *
  * @return boolean
  */
-function plugin_myexample_uninstall() {
+function plugin_printercountersummary_uninstall() {
    //to some stuff, like removing tables, generated files, ...
    return true;
 }
