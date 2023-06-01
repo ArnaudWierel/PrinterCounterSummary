@@ -24,7 +24,7 @@ function plugin_init_printercountersummary() {
    //required!
     $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
     $PLUGIN_HOOKS['menu_toadd']['printercountersummary'] = array('tools' => 'PluginPrinterCounterSummary');
-    Plugin::registerClass('PluginPrinterCounterSummary');
+    Plugin::registerClass('PrinterCounterSummary');
    //some code here, like call to Plugin::registerClass(), populating PLUGIN_HOOKS, ...
 }
 
