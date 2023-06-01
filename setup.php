@@ -18,7 +18,7 @@ define('PRINTERCOUNTERSUMMARY_VERSION', '1.0.0');
  *
  * @return void
  */
-function plugin_init_PrinterCouterSummary() {
+function plugin_init_printercountersummary() {
    global $PLUGIN_HOOKS;
 
    //required!
@@ -32,7 +32,7 @@ function plugin_init_PrinterCouterSummary() {
  *
  * @return array
  */
-function plugin_version_PrinterCouterSummary() {
+function plugin_version_printercountersummary() {
    return [
       'name'           => 'PrinterCouterSummary',
       'version'        => '1.0.0',
@@ -56,7 +56,7 @@ function plugin_version_PrinterCouterSummary() {
  *
  * @return boolean
  */
-function plugin_PrinterCouterSummary_check_prerequisites() {
+function plugin_printercountersummary_check_prerequisites() {
    // check the glpi version
     if (version_compare(GLPI_VERSION, '10.0.2', 'lt') || version_compare(PHP_VERSION, '7.4', 'lt')) {
         echo "This plugin requires GLPI 10.0.2 and PHP between 7.4 and 8.19";
@@ -73,7 +73,7 @@ function plugin_PrinterCouterSummary_check_prerequisites() {
  *
  * @return boolean
  */
-function plugin_PrinterCouterSummary_check_config($verbose = false) {
+function plugin_printercountersummary_check_config($verbose = false) {
    if (true) { // Your configuration check
       return true;
    }
@@ -89,7 +89,7 @@ function plugin_PrinterCouterSummary_check_config($verbose = false) {
  *
  * @return array
  */
-function plugin_PrinterCouterSummary_options() {
+function plugin_printercountersummary_options() {
    return [
       Plugin::OPTION_AUTOINSTALL_DISABLED => true,
    ];
