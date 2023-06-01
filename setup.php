@@ -22,7 +22,7 @@ function plugin_init_printercountersummary() {
    global $PLUGIN_HOOKS;
 
    //required!
-   $PLUGIN_HOOKS['csrf_compliant']['PrinterCouterSummary'] = true;
+   $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
 
    //some code here, like call to Plugin::registerClass(), populating PLUGIN_HOOKS, ...
 }
@@ -34,7 +34,7 @@ function plugin_init_printercountersummary() {
  */
 function plugin_version_printercountersummary() {
    return [
-      'name'           => 'PrinterCouterSummary',
+      'name'           => 'PrinterCounterSummary',
       'version'        => '1.0.0',
       'author'         => 'Snayto (Arnaud WIEREL)',
       'license'        => 'GLPv3',
