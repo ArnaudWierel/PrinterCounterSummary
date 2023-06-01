@@ -22,8 +22,8 @@ function plugin_init_printercountersummary() {
    global $PLUGIN_HOOKS;
 
    //required!
-   $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
-
+    $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
+    $PLUGIN_HOOKS['menu_toadd']['printercountersummary'] = array('tools' => 'PluginPrinterCounterSummary');
    //some code here, like call to Plugin::registerClass(), populating PLUGIN_HOOKS, ...
 }
 
@@ -93,4 +93,13 @@ function plugin_printercountersummary_options() {
    return [
       Plugin::OPTION_AUTOINSTALL_DISABLED => true,
    ];
+}
+
+function plugin_printercountersummary_getMenuContent() {
+    return array(
+        'title' => __("Printer Counter Summary", 'printercountersummary'),
+        'page'  => "/plugins/PrinterCounterSummary/front/printercountersummaryuserpage.php",
+        'icon'  => 'printercountersummary',
+        'menu'  => 'plugins'
+    );
 }
