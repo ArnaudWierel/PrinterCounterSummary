@@ -12,20 +12,17 @@ class PluginPrinterCounterSummary extends CommonDBTM {
       return __('Printer Counter Summary', 'printercountersummary');
    }
 
-    //showmenu with the echo
-    static function showMenu() {
-        echo '<div class="center">';
-        echo '<h2>Welcome to the Printer Counter Summary plugin!', 'printercountersummary</h2>';
-        echo '</div>';
-    }
+    // showmenu method is removed, since it's not used.
 
     static function getMenuContent() {
-        return array(
-            'title' => self::getTypeName(2),
-            'page'  => "/plugins/PrinterCounterSummary/front/printercountersummary.php",
-            'icon'  => 'fas fa-print',
-            'menu'  => 'plugins'
-        );
+       $menu = [];
+   
+       // Menu entry in helpdesk
+       $menu['title'] = self::getTypeName(2);
+       $menu['page']  = "/plugins/PrinterCounterSummary/front/printercountersummary.php";
+       $menu['icon']  = 'fas fa-print';
+
+       return $menu;
     }
 
     // (Optionally) implement access rights 
@@ -40,5 +37,24 @@ class PluginPrinterCounterSummary extends CommonDBTM {
                     'plugin_printercountersummary' => 'PluginPrinterCounterSummary'
                 ];
         }
+    }
+
+    function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
+        // Vérifiez le type de l'objet et renvoyez le nom approprié
+        switch ($item->getType()) {
+            case 'PluginPrinterCounterSummary':
+                return __('Printer Counter Summary', 'printercountersummary');
+        }
+        return '';
+    }
+
+    static function displayTabContentForItem(CommonGLPI $item, $tabnum=1, $withtemplate=0) {
+        // Votre code ici, qui sera exécuté lorsque l'onglet est sélectionné
+        switch ($item->getType()) {
+            case 'PluginPrinterCounterSummary':
+                // Votre code ici
+                break;
+        }
+        return true;
     }
 }
