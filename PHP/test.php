@@ -1,20 +1,20 @@
 <?php
 include ("Connect_BDD.php"); // Assurez-vous que ce chemin d'accès est correct
 
-function getTableNames($pdo) {
-    try {
-        $result = $pdo->query('SHOW TABLES');
-        $tables = [];
-        
-        while($row = $result->fetch()) {
+function getTableNames($conn) {
+    $result = $conn->query('SHOW TABLES');
+    $tables = [];
+    
+    if($result === false) {
+        die('Erreur de connexion : ' . $conn->error);
+    } else {
+        while($row = $result->fetch_array()) {
             $tables[] = $row[0];
         }
-        
-        return $tables;
-    } catch(PDOException $e) {
-        die('Erreur de connexion : ' . $e->getMessage());
     }
+
+    return $tables;
 }
 
-$tables = getTableNames($pdo);
+$tables = getTableNames($conn);
 ?>
