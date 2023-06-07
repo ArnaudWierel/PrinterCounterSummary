@@ -1,6 +1,6 @@
 <?php
 $host = '10.67.100.111';
-$db   = 'glpi';
+$db   = 'glpigroupe';
 $user = 'root';
 $pass = 'Sbx3390rds!';
 $charset = 'utf8mb4';
