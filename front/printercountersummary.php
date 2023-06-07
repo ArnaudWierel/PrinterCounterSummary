@@ -17,7 +17,7 @@ include ('../../../inc/includes.php');
 
 // include the header of the page
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
-include ("../PHP/Test.php");  // Assurez-vous que ce chemin d'accès est correct
+include ("../PHP/test.php");  // Assurez-vous que ce chemin d'accès est correct
 
 // include a title for the page in order to test the plugin
 echo '<div class="center">';
