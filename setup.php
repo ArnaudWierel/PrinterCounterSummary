@@ -11,7 +11,6 @@ ________________________________________________________________________________
 |                                                                                                                 |___/  |
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
-*/
 define('PRINTERCOUNTERSUMMARY_VERSION', '1.0.0');
 include_once('inc/printercountersummary.class.php');
 
