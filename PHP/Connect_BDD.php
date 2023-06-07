@@ -3,17 +3,14 @@ $host = '10.67.100.111';
 $db   = 'glpigroupe';
 $user = 'root';
 $pass = 'Sbx3390rds!';
-$charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-   PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-   PDO::ATTR_EMULATE_PREPARES   => false,
-];
-try {
-   $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-   throw new \PDOException($e->getMessage(), (int)$e->getCode());
+// Crée une nouvelle connexion à la base de données
+$conn = new mysqli($host, $user, $pass, $db);
+
+// Vérifie si la connexion a réussi
+if ($conn->connect_error) {
+    die("Échec de la connexion : " . $conn->connect_error);
 }
+
+echo "Connexion réussie";
 ?>
