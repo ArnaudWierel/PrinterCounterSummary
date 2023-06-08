@@ -23,10 +23,20 @@ include ("../PHP/test.php");  // Assurez-vous que ce chemin d'accès est correct
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
 
-// Affichage des résultats de la requête
+/// Pour afficher les résultats sous forme de tableau
+echo "<table>";
+// Header pour le nom
+echo "<tr>";
+echo "<th>" . $result[0]['name'] . "</th>";
+echo "</tr>";
+
+// Lignes pour chaque valeur
 foreach($result as $row) {
-    echo 'Nom: ' . htmlspecialchars($row['Nom']) . ', Date: ' . htmlspecialchars($row['date']) . ', Compteurs: ' . htmlspecialchars($row['Compteurs']) . '<br>';
+    echo "<tr>";
+    echo "<td>" . $row['value'] . "</td>";
+    echo "</tr>";
 }
+echo "</table>";
 
 echo '</div>';
 
