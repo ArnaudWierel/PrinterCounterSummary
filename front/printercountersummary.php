@@ -23,9 +23,9 @@ include ("../PHP/test.php");  // Assurez-vous que ce chemin d'accès est correct
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
 
-// Affichage des noms des tables
-foreach($tables as $table) {
-    echo $table, '<br>';
+// Affichage des résultats de la requête
+foreach($result as $row) {
+    echo 'Nom: ' . htmlspecialchars($row['Nom']) . ', Date: ' . htmlspecialchars($row['date']) . ', Compteurs: ' . htmlspecialchars($row['Compteurs']) . '<br>';
 }
 
 echo '</div>';

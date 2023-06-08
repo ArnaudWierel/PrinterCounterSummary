@@ -16,7 +16,8 @@ $options = [
 try {
     // Crée une nouvelle connexion à la base de données
     $pdo = new PDO($dsn, $user, $pass, $options);
-    echo "Connexion réussie";
+    // Ajoute un script JavaScript pour afficher un message dans la console
+    echo '<script>console.log("Connexion établie avec la BDD")</script>';
 } catch (\PDOException $e) {
     // Si la connexion échoue, affiche une erreur
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
