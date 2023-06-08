@@ -13,33 +13,33 @@ ________________________________________________________________________________
 */
 // glpi page for the plugin
 // Path: front\printercountersummary.php
+<?php
+
+// glpi page for the plugin
+// Path: front\printercountersummary.php
 include ('../../../inc/includes.php');
 
 // include the header of the page
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
-include ("../PHP/test.php");  // Assurez-vous que ce chemin d'accès est correct
+
+// Make sure this path is correct
+include ("../inc/Nom.class.php");  
+
+$nom = new Nom($pdo);
 
 // include a title for the page in order to test the plugin
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
 
-/// Pour afficher les résultats sous forme de tableau
+// Afficher les résultats
 echo "<table>";
-// Header pour le nom
-echo "<tr>";
-echo "<th>" . $result[0]['name'] . "</th>";
-echo "</tr>";
-
-// Lignes pour chaque valeur
-foreach($result as $row) {
-    echo "<tr>";
-    echo "<td>" . $row['value'] . "</td>";
-    echo "</tr>";
-}
+echo "<tr><th>" . $nom->getName() . "</th></tr>";  // En-tête de tableau avec le nom
+echo "<tr><td>" . $nom->getValue() . "</td></tr>"; // Ligne de tableau avec la valeur
 echo "</table>";
 
 echo '</div>';
 
 // include the footer of the page
 Html::footer();
+
 ?>
