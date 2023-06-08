@@ -8,7 +8,7 @@ function getTableNames($pdo) {
     if($result === false) {
         die('Erreur de requête : ' . $pdo->errorInfo()[2]);
     } else {
-        while($row = $result->fetch()) {
+        while($row = $result->fetch(PDO::FETCH_NUM)) {
             $tables[] = $row[0];
         }
     }
