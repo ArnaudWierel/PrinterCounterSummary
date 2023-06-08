@@ -12,6 +12,7 @@ ________________________________________________________________________________
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
+
 // glpi page for the plugin
 // Path: front\printercountersummary.php
 include ('../../../inc/includes.php');
@@ -20,18 +21,30 @@ include ('../../../inc/includes.php');
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
 
 // Make sure this path is correct
-include ("../inc/Nom.class.php");  
-
-$nom = new Nom($pdo);
+include ("../inc/Nom.class.php");
 
 // include a title for the page in order to test the plugin
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
 
-// Afficher les résultats
+// Fetching the values of Nom
+$nom = new Nom($pdo);
+$values = $nom->getValues();
+
+// Displaying the values in a table
 echo "<table>";
-echo "<tr><th>" . $nom->getName() . "</th></tr>";  // En-tête de tableau avec le nom
-echo "<tr><td>" . $nom->getValue() . "</td></tr>"; // Ligne de tableau avec la valeur
+echo "<tr>";
+echo "<th>" . $nom->getName() . "</th>";
+echo "</tr>";
+
+foreach ($values as $value) {
+    echo "<tr>";
+    echo "<td>" . $value['value'] . "</td>";
+    echo "</tr>";
+    // Perform additional queries with $value
+    // ...
+}
+
 echo "</table>";
 
 echo '</div>';

@@ -6,7 +6,7 @@ include ("../PHP/Connect_BDD.php");
 interface NomInterface {
     public function __construct($pdo);
     public function getName();
-    public function getValue();
+    public function getValues();
     public function getId();
     public function setName($name);
     public function setValue($value);
@@ -15,7 +15,7 @@ interface NomInterface {
 
 class Nom implements NomInterface {
     private $name;
-    private $value;
+    private $values;
     private $id;
 
     public function __construct($pdo) {
@@ -28,11 +28,11 @@ class Nom implements NomInterface {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row) {
-            $this->name = $row['name'];
-            $this->value = $row['value'];
-            $this->id = $row['id'];
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($rows) {
+            $this->name = $rows[0]['name'];
+            $this->values = $rows;
+            $this->id = $rows[0]['id'];
         }
     }
 
@@ -40,8 +40,8 @@ class Nom implements NomInterface {
         return $this->name;
     }
 
-    public function getValue() {
-        return $this->value;
+    public function getValues() {
+        return $this->values;
     }
 
     public function getId() {
