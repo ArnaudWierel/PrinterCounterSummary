@@ -11,9 +11,6 @@ ________________________________________________________________________________
 |                                                                                                                 |___/  |
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
-// glpi page for the plugin
-// Path: front\printercountersummary.php
-<?php
 
 // glpi page for the plugin
 // Path: front\printercountersummary.php
