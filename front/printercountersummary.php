@@ -19,10 +19,6 @@ include ('../../../inc/includes.php');
 // include the header of the page
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
 
-// Make sure this path is correct
-include ("../inc/Nom.class.php");
-include ("../inc/Date.class.php");
-
 // include a title for the page in order to test the plugin
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
@@ -30,16 +26,28 @@ echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercounter
 // Include the CSS file
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
+// Make sure this path is correct
+include ("../inc/Nom.class.php");
+include ("../inc/Date.class.php");
+include ("../inc/CompteurTot.class.php");
+include ("../inc/Total.class.php");
+
 // Fetching the values of Nom
 $nom = new Nom($pdo);
 $values = $nom->getValues();
+
+// Fetching the last counters
+$compteurTot = new CompteurTot($pdo);
+$compteurs = $compteurTot->getCompteurs();
 
 // Displaying the values in a table
 echo '<table class="styled-table">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
-echo '<th>Last Date</th>';
+echo '<th>Dernière date de relevé</th>';
+echo '<th>Compteurs</th>';
+echo '<th>Totaux</th>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
@@ -56,6 +64,20 @@ foreach ($values as $value) {
     } else {
         echo '<td>No Date found</td>';
     }
+
+    if (isset($compteurs[$value['id']])) {
+        echo '<td>';
+        $total = 0; // Variable pour calculer le total
+        foreach ($compteurs[$value['id']]['values'] as $index => $counter) {
+            echo $compteurs[$value['id']]['names'][$index] . ': ' . $counter . '<br>'; // Affichage du nom et de la valeur du compteur
+            $total += $counter; // Ajout de la valeur au total
+        }
+        echo '</td>';
+        echo '<td>' . $total . '</td>'; // Affichage du total
+    } else {
+        echo '<td colspan="2">No Counters found</td>';
+    }
+
     echo '</tr>';
 }
 
