@@ -12,7 +12,6 @@ ________________________________________________________________________________
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-
 // glpi page for the plugin
 // Path: front\printercountersummary.php
 include ('../../../inc/includes.php');
@@ -22,30 +21,46 @@ Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['P
 
 // Make sure this path is correct
 include ("../inc/Nom.class.php");
+include ("../inc/Date.class.php");
 
 // include a title for the page in order to test the plugin
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
+
+// Include the CSS file
+echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
 // Fetching the values of Nom
 $nom = new Nom($pdo);
 $values = $nom->getValues();
 
 // Displaying the values in a table
-echo "<table>";
-echo "<tr>";
-echo "<th>" . $nom->getName() . "</th>";
-echo "</tr>";
+echo '<table class="styled-table">';
+echo '<thead>';
+echo '<tr>';
+echo '<th>' . $nom->getName() . '</th>';
+echo '<th>Last Date</th>';
+echo '</tr>';
+echo '</thead>';
+echo '<tbody>';
 
 foreach ($values as $value) {
-    echo "<tr>";
-    echo "<td>" . $value['value'] . "</td>";
-    echo "</tr>";
+    echo '<tr>';
+    echo '<td>' . $value['value'] . '</td>';
+
     // Perform additional queries with $value
-    // ...
+    $date = new Date($pdo);
+    $lastDate = $date->getLastDate($value['id']);
+    if ($lastDate) {
+        echo '<td>' . $lastDate . '</td>';
+    } else {
+        echo '<td>No Date found</td>';
+    }
+    echo '</tr>';
 }
 
-echo "</table>";
+echo '</tbody>';
+echo '</table>';
 
 echo '</div>';
 
