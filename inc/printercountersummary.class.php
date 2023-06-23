@@ -21,20 +21,20 @@ class PluginPrinterCounterSummary extends CommonDBTM {
     static $rightname = 'plugin_printercountersummary';
 
     static function getTypeName($nb = 0) {
-      return __('Printer Counter Summary', 'printercountersummary');
-   }
+        return __('Printer Counter Summary', 'printercountersummary');
+    }
 
     // showmenu method is removed, since it's not used.
 
     static function getMenuContent() {
-       $menu = [];
-   
-       // Menu entry in helpdesk
-       $menu['title'] = self::getTypeName(2);
-       $menu['page']  = "/plugins/PrinterCounterSummary/front/printercountersummary.php";
-       $menu['icon']  = 'fas fa-print';
+        $menu = [];
 
-       return $menu;
+        // Menu entry in helpdesk
+        $menu['title'] = self::getTypeName(2);
+        $menu['page']  = "/plugins/PrinterCounterSummary/front/printercountersummary.php";
+        $menu['icon']  = 'fas fa-print';
+
+        return $menu;
     }
 
     // (Optionally) implement access rights 
@@ -64,6 +64,13 @@ class PluginPrinterCounterSummary extends CommonDBTM {
         // Votre code ici, qui sera exécuté lorsque l'onglet est sélectionné
         switch ($item->getType()) {
             case 'PluginPrinterCounterSummary':
+                $pdo = self::getDBConnection();
+                $compteurTot = new CompteurTot($pdo);
+                $compteurs = $compteurTot->getCompteurs();
+
+                // Enregistre les compteurs dans la table
+                $compteurTot->saveCompteurs($compteurs);
+
                 // Votre code ici
                 break;
         }

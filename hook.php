@@ -19,7 +19,27 @@ include_once('inc/printercountersummary.class.php');
  * @return boolean
  */
 function plugin_printercountersummary_install() {
-   // je n'es pas besoin de bdd pour mon plugin
+   global $DB;
+
+   $table = "votre_table";
+   // Crée la table pour stocker les informations
+   $query = "DROP TABLE IF EXISTS `$table`";
+   $DB->query($query) or die("Erreur lors de la suppression de la table $table : ".$DB->error());
+   
+$query = "CREATE TABLE IF NOT EXISTS `$table` (
+      `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `imprimante_id` INT UNSIGNED NOT NULL,
+      `imprimante_name` VARCHAR(255) NOT NULL,
+      `date` TIMESTAMP NOT NULL,
+      `id_relevé` INT UNSIGNED NOT NULL,
+      `compteur_name` VARCHAR(255) NOT NULL,
+      `compteur` INT UNSIGNED NOT NULL,
+      `total` INT UNSIGNED NOT NULL,
+      PRIMARY KEY (`id`)
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1";
+
+   $DB->query($query) or die("Erreur lors de la création de la table $table : ".$DB->error());
+
    return true;
 }
 
@@ -29,6 +49,11 @@ function plugin_printercountersummary_install() {
  * @return boolean
  */
 function plugin_printercountersummary_uninstall() {
-   //to some stuff, like removing tables, generated files, ...
+   global $DB;
+
+   // Supprime la table
+   $table = "votre_table";
+   $query = "DROP TABLE IF EXISTS `$table`";
+   $DB->query($query) or die("Erreur lors de la suppression de la table $table : ".$DB->error());
    return true;
 }

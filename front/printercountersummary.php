@@ -14,7 +14,10 @@ ________________________________________________________________________________
 
 // glpi page for the plugin
 // Path: front\printercountersummary.php
-include ('../../../inc/includes.php');
+echo'<!DOCTYPE html>';
+echo '
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+include_once ('../../../inc/includes.php');
 
 // include the header of the page
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
@@ -27,10 +30,11 @@ echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercounter
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
 // Make sure this path is correct
-include ("../inc/Nom.class.php");
-include ("../inc/Date.class.php");
-include ("../inc/CompteurTot.class.php");
-include ("../inc/Total.class.php");
+include_once ("../inc/Nom.class.php");
+include_once ("../inc/Date.class.php");
+include_once ("../inc/CompteurTot.class.php");
+include_once ("../inc/Total.class.php");
+include_once ("../PHP/save_data.php");
 
 // Fetching the values of Nom
 $nom = new Nom($pdo);
@@ -53,6 +57,7 @@ echo '</thead>';
 echo '<tbody>';
 
 foreach ($values as $value) {
+    $imprimanteId = $value['id'];
     echo '<tr>';
     echo '<td>' . $value['value'] . '</td>';
 
@@ -63,6 +68,12 @@ foreach ($values as $value) {
         echo '<td>' . $lastDate . '</td>';
     } else {
         echo '<td>No Date found</td>';
+    }
+
+     if ($lastDate) {
+        $derniereDate = "'" . $lastDate . "'";
+    } else {
+        $derniereDate = "null";
     }
 
     if (isset($compteurs[$value['id']])) {
@@ -79,14 +90,34 @@ foreach ($values as $value) {
     }
 
     echo '</tr>';
+
 }
 
 echo '</tbody>';
 echo '</table>';
-
+// quand on clique sur le bouton "Enregistrer" on initalise la fonction save_data
+echo '
+<script>
+    $(document).ready(function(){
+        $("#saveDataButton").on("click", function() {
+            $.ajax({
+                url: "../PHP/executeSaveData.php", // Remplacez par le chemin de votre script PHP
+                type: "POST",
+                success: function(response) {
+                    // Ici, vous pouvez gérer la réponse du serveur
+                    console.log(response);
+                },
+                error: function(error) {
+                    // Ici, vous pouvez gérer les erreurs
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>';
+echo '<button id="saveDataButton">Save Data</button>';
 echo '</div>';
 
 // include the footer of the page
 Html::footer();
-
 ?>
