@@ -49,6 +49,7 @@ echo '<table class="styled-table">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
+echo '<th>Adresse IP</th>'; // Add new column for IP Adress
 echo '<th>Dernière date de relevé</th>';
 echo '<th>Compteurs</th>';
 echo '<th>Totaux</th>';
@@ -60,6 +61,13 @@ foreach ($values as $value) {
     $imprimanteId = $value['id'];
     echo '<tr>';
     echo '<td>' . $value['value'] . '</td>';
+
+    // Display IP Adress
+    if (isset($ipValues[$value['id']])) {
+        echo '<td>' . $ipValues[$value['id']] . '</td>';
+    } else {
+        echo '<td>No IP Adress found</td>';
+    }
 
     // Perform additional queries with $value
     $date = new Date($pdo);
