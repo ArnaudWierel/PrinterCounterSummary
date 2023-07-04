@@ -31,6 +31,7 @@ echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
 // Make sure this path is correct
 include_once ("../inc/Nom.class.php");
+include_once ("../inc/IPAdress.class.php");
 include_once ("../inc/Date.class.php");
 include_once ("../inc/CompteurTot.class.php");
 include_once ("../inc/Total.class.php");
@@ -38,7 +39,9 @@ include_once ("../PHP/save_data.php");
 
 // Fetching the values of Nom
 $nom = new Nom($pdo);
+$ipAdress = new IPAdress($pdo);
 $values = $nom->getValues();
+$ipValues = $ipAdress->getValues();
 
 // Fetching the last counters
 $compteurTot = new CompteurTot($pdo);
