@@ -14,6 +14,8 @@ ________________________________________________________________________________
 
 echo'<!DOCTYPE html>';
 echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+echo '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">';
+echo '<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>';
 include_once ('../../../inc/includes.php');
 
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
@@ -37,7 +39,7 @@ $ipValues = $ipAdress->getValues();
 $compteurTot = new CompteurTot($pdo);
 $compteurs = $compteurTot->getCompteurs();
 
-echo '<table class="styled-table">';
+echo '<table id="myTable" class="styled-table">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
@@ -103,6 +105,13 @@ echo '</table>';
     });
 </script>';
 echo '<button id="saveDataButton">Save Data</button>';*/
+echo '
+<script>
+$(document).ready( function () {
+    $("#myTable").DataTable();
+} );
+</script>
+';
 echo '</div>';
 
 Html::footer();
