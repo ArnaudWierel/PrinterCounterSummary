@@ -27,7 +27,6 @@ include_once ("../inc/IPAdress.class.php");
 include_once ("../inc/Date.class.php");
 include_once ("../inc/CompteurTot.class.php");
 include_once ("../inc/Total.class.php");
-include_once ("../PHP/save_data.php");
 
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
