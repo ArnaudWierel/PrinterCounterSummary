@@ -9,15 +9,13 @@ class IPAdress {
     private $id;
 
     public function __construct($pdo) {
-        $sql = "
-            SELECT glpi_printers.id AS id, glpi_ipaddresses.name AS ip
-            FROM glpi_printers
-            JOIN glpi_networkports ON glpi_networkports.items_id = glpi_printers.id 
-            AND glpi_networkports.itemtype = 'Printer'
-            JOIN glpi_networknames ON glpi_networknames.id = glpi_networkports.networknames_id
-            JOIN glpi_ipaddresses ON glpi_ipaddresses.items_id = glpi_networknames.id
-            AND glpi_ipaddresses.itemtype = 'NetworkName'
-        ";
+$sql = "
+    SELECT glpi_printers.id AS id, glpi_ipaddresses.name AS ip
+    FROM glpi_printers
+    LEFT JOIN glpi_networkports ON (glpi_networkports.items_id = glpi_printers.id AND glpi_networkports.itemtype = 'Printer')
+    LEFT JOIN glpi_networknames ON glpi_networknames.items_id = glpi_networkports.id
+    LEFT JOIN glpi_ipaddresses ON glpi_ipaddresses.items_id = glpi_networknames.id AND glpi_ipaddresses.itemtype = 'NetworkName'
+";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
