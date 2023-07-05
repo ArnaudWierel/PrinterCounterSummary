@@ -41,7 +41,7 @@ include_once ("../PHP/save_data.php");
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
 $values = $nom->getValues();
-$ipValues = $ipAdress->getValues();
+$valuesIP = $ipAdress->getValues();
 
 // Fetching the last counters
 $compteurTot = new CompteurTot($pdo);
@@ -66,11 +66,10 @@ foreach ($values as $value) {
     echo '<td>' . $value['value'] . '</td>';
 
     // Display IP Adress
-    if (isset($ipValues[$value['id']])) {
-        echo '<td>' . $ipValues[$value['id']] . '</td>';
-    } else {
-        echo '<td>No IP Adress found</td>';
-    }
+// Displaying the IP addresses
+foreach ($valuesIP as $value) {
+    echo $value['id'] . ': ' . $value['ip'] . '<br>';
+}
 
     // Perform additional queries with $value
     $date = new Date($pdo);
