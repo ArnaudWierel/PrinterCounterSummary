@@ -13,11 +13,13 @@ ________________________________________________________________________________
 */
 
 echo'<!DOCTYPE html>';
-echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+
 include_once ('../../../inc/includes.php');
 
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
-
+echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>';
+echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />';
+echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>';
 echo '<div class="center">';
 echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
@@ -37,7 +39,7 @@ $ipValues = $ipAdress->getValues();
 $compteurTot = new CompteurTot($pdo);
 $compteurs = $compteurTot->getCompteurs();
 
-echo '<table class="styled-table">';
+echo '<table class="styled-table" id="myTable">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
@@ -103,6 +105,12 @@ echo '</table>';
     });
 </script>';
 echo '<button id="saveDataButton">Save Data</button>';*/
+echo '
+<script>
+    $(document).ready(function() {
+        $("#myTable").DataTable();
+    });
+</script>';
 echo '</div>';
 
 Html::footer();
