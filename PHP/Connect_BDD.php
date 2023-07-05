@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db   = 'glpi';
+$db   = 'glpigroupe';
 $user = 'root';
-$pass = '';
+$pass = 'Sbx3390rds!';
 $charset = 'utf8mb4';
 
 // Configuration des options de connexion
