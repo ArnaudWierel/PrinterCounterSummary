@@ -1,7 +1,6 @@
 <?php
 
 include ("../PHP/Connect_BDD.php");
-include ("../inc/Nom.class.php");
 
 class IPAdress {
     private $ip;
