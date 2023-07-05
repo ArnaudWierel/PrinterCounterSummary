@@ -58,7 +58,7 @@ foreach ($values as $value) {
     echo '<td>' . $value['value'] . '</td>';
 
     $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
-    echo '<td><a href="http://' . $ipAddress . '/">' . $ipAddress . '</a></td>';
+    echo '<td><a href="http://' . $ipAddress . '/" target="_blank">' . $ipAddress . '</a></td>';
 
     $date = new Date($pdo);
     $lastDate = $date->getLastDate($value['id']);
