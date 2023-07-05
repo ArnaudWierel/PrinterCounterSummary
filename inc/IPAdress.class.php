@@ -11,7 +11,7 @@ class IPAdress {
         $sql = "
             SELECT glpi_printers.id AS id, glpi_ipaddresses.name AS ip
             FROM glpi_printers
-            LEFT JOIN glpi_networkports ON (glpi_networkports.items_id = glpi_printers.items_id AND glpi_networkports.itemtype = 'Printer')
+            LEFT JOIN glpi_networkports ON (glpi_networkports.items_id = glpi_printers.id AND glpi_networkports.itemtype = 'Printer')
             LEFT JOIN glpi_networknames ON glpi_networknames.items_id = glpi_networkports.id
             LEFT JOIN glpi_ipaddresses ON glpi_ipaddresses.items_id = glpi_networknames.id AND glpi_ipaddresses.itemtype = 'NetworkName'
         ";
