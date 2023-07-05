@@ -52,7 +52,7 @@ echo '<tbody>';
 
 foreach ($values as $value) {
     $imprimanteId = $value['id'];
-    $imprimanteItemId = $itemsId['items_id'];
+    $imprimanteItemId = $value['items_id']
     echo '<tr>';
     echo '<td>' . $value['value'] . '</td>';
 
