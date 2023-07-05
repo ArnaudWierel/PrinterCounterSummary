@@ -12,11 +12,8 @@ ________________________________________________________________________________
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-// glpi page for the plugin
-// Path: front\printercountersummary.php
 echo'<!DOCTYPE html>';
-echo '
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
 include_once ('../../../inc/includes.php');
 
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
@@ -35,6 +32,7 @@ include_once ("../PHP/save_data.php");
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
 $values = $nom->getValues();
+$itemsId = $nom->getItemsId();
 $ipValues = $ipAdress->getValues();
 
 $compteurTot = new CompteurTot($pdo);
@@ -54,14 +52,12 @@ echo '<tbody>';
 
 foreach ($values as $value) {
     $imprimanteId = $value['id'];
+    $imprimanteItemId = $itemsId['items_id']
     echo '<tr>';
     echo '<td>' . $value['value'] . '</td>';
 
-    if (isset($ipValues[$value['id']])) {
-        echo '<td>' . $ipValues[$value['id']] . '</td>';
-    } else {
-        echo '<td>No IP Adress found</td>';
-    }
+    $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
+    echo '<td>' . $ipAddress . '</td>';
 
     $date = new Date($pdo);
     $lastDate = $date->getLastDate($value['id']);
