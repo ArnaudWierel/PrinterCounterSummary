@@ -86,7 +86,7 @@ foreach ($values as $value) {
 echo '</tbody>';
 echo '</table>';
 
-echo '
+/*echo '
 <script>
     $(document).ready(function(){
         $("#saveDataButton").on("click", function() {
@@ -103,7 +103,7 @@ echo '
         });
     });
 </script>';
-echo '<button id="saveDataButton">Save Data</button>';
+echo '<button id="saveDataButton">Save Data</button>';*/
 echo '</div>';
 
 Html::footer();
