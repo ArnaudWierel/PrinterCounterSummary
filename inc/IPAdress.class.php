@@ -41,13 +41,16 @@ class IPAdress {
         return $this->ip;
     }
 
-    public function getValues() {
-        $values = [];
+public function getValues() {
+    $values = [];
+    if (is_array($this->values) || is_object($this->values)) {
         foreach($this->values as $row) {
             $values[$row['id']] = $row['ip'];
         }
-        return $values;
     }
+    return $values;
+}
+
 
     public function getId() {
         return $this->id;
