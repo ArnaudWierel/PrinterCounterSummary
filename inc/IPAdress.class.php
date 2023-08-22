@@ -1,13 +1,15 @@
 <?php
 
-include ("../PHP/Connect_BDD.php");
+include("../PHP/Connect_BDD.php");
 
-class IPAdress {
+class IPAdress
+{
     private $ip;
     private $values;
     private $id;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $sql = "
             SELECT glpi_printers.id AS id, glpi_ipaddresses.name AS ip
             FROM glpi_printers
@@ -28,7 +30,8 @@ class IPAdress {
         }
     }
 
-    public function getIPByPrinterId($printerId) {
+    public function getIPByPrinterId($printerId)
+    {
         if (isset($this->values[$printerId])) {
             return $this->values[$printerId];
         } else {
@@ -37,32 +40,44 @@ class IPAdress {
     }
 
 
-    public function getIP() {
+    public function getIP()
+    {
         return $this->ip;
     }
 
-    public function getValues() {
+    public function getValues()
+    {
         $values = [];
-        foreach($this->values as $row) {
-            $values[$row['id']] = $row['ip'];
+        if (is_array($this->values) || is_object($this->values)) {
+            foreach ($this->values as $row) {
+                if (is_array($row) || is_object($row)) {
+                    if (isset($row['id']) && isset($row['ip'])) {
+                        $values[$row['id']] = $row['ip'];
+                    }
+                }
+            }
         }
         return $values;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setIP($ip) {
+    public function setIP($ip)
+    {
         $this->ip = $ip;
     }
 
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    
+
 }
