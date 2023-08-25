@@ -12,23 +12,23 @@ ________________________________________________________________________________
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-echo'<!DOCTYPE html>';
+echo '<!DOCTYPE html>';
 
-include_once ('../../../inc/includes.php');
+include_once('../../../inc/includes.php');
 
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
 echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>';
 echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />';
 echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>';
 echo '<div class="center">';
-echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
+echo '<h2>' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
-include_once ("../inc/Nom.class.php");
-include_once ("../inc/IPAdress.class.php");
-include_once ("../inc/Date.class.php");
-include_once ("../inc/CompteurTot.class.php");
-include_once ("../inc/Total.class.php");
+include_once("../inc/Nom.class.php");
+include_once("../inc/IPAdress.class.php");
+include_once("../inc/Date.class.php");
+include_once("../inc/CompteurTot.class.php");
+include_once("../inc/Total.class.php");
 
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
@@ -43,7 +43,7 @@ echo '<table class="styled-table" id="myTable">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
-echo '<th>Adresse IP</th>'; 
+echo '<th>Adresse IP</th>';
 echo '<th>Dernière date de relevé</th>';
 echo '<th>Compteurs</th>';
 echo '<th>Totaux</th>';
@@ -55,10 +55,10 @@ foreach ($values as $value) {
     $imprimanteId = $value['id'];
     $imprimanteItemId = $value['items_id'];
     echo '<tr>';
-    echo '<td>' . $value['value'] . '</td>';
+    echo '<td><a href="http://10.67.104.105/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
 
     $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
-    echo '<td><a href="http://' . $ipAddress . '/" target="_blank">' . $ipAddress . '</a></td>';
+    echo '<td><a href="http://' . $ipAddress . '/">' . $ipAddress . '</a></td>';
 
     $date = new Date($pdo);
     $lastDate = $date->getLastDate($value['id']);
