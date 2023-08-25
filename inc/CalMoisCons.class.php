@@ -21,47 +21,78 @@ class CalMoisCons
         $this->pdo = $pdo;
     }
 
-    private function main()
+    public function main()
     {
+        // on cree la table ZDisplayPrintersCountersSummary
+        $this->CreateNewTable($this->table);
+
         $query = "SELECT id_relevé, imprimante_id, imprimante_name, compteur_name, compteur FROM votre_table WHERE id_relevé = (SELECT MAX(id_relevé) FROM votre_table)";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
 
         // on récupère les données dans un tableau associatif
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $row) {
+            $this->id_relevé_1 = $row['id_relevé'];
+        }
 
-        // on récupère l'id_relevé - 1
-        $this->id_relevé_1 = $rows['id_relevé'] - 1;
+        // puis on lui enlève 1
+        $this->id_relevé_1 = $this->id_relevé_1 - 1;
 
         // on ajoute la nouvelle colonne où on stockera les données
         $nom_colonne = $this->addNewColumn();
 
+        // ...
         foreach ($rows as $row) {
-            // on récupere les données l'id_relvé de rows
+            // on récupère les données l'id_relvé de rows
             $this->id_relevé = $row['id_relevé'];
             $this->imprimante_id = $row['imprimante_id'];
             $this->compteur_name = $row['compteur_name'];
             $this->compteur = $row['compteur'];
 
             // on récupère la ligne correspondante mais avec l'id_relevé - 1
-            $query = "SELECT id_relevé, imprimante_id, imprimante_name, compteur_name, compteur FROM votre_table WHERE id_relevé = {$this->id_relevé_1} AND imprimante_id = {$this->imprimante_id} AND compteur_name = {$this->compteur_name}";
+            $query = "SELECT id_relevé, imprimante_id, imprimante_name, compteur_name, compteur FROM votre_table WHERE id_relevé = :id_releve AND imprimante_id = :imprimante_id AND compteur_name = :compteur_name";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam(':id_releve', $this->id_relevé_1, PDO::PARAM_INT);
+            $stmt->bindParam(':imprimante_id', $this->imprimante_id, PDO::PARAM_INT);
+            $stmt->bindParam(':compteur_name', $this->compteur_name, PDO::PARAM_STR);
             $stmt->execute();
 
             if ($stmt->rowCount() == 1) {
-                // on récupère les données dans un tableau associatif avecx des nom différent
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $this->id_relevé_2 = $rows['id_relevé'];
-                $this->imprimante_id_2 = $rows['imprimante_id'];
-                $this->imprimante_name_2 = $rows['imprimante_name'];
-                $this->compteur_name_2 = $rows['compteur_name'];
-                $this->compteur_2 = $rows['compteur'];
+                // on récupère les données dans un tableau associatif avec des noms différents
+                $rows_2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $this->id_relevé_2 = $rows_2[0]['id_relevé'];
+                $this->imprimante_id_2 = $rows_2[0]['imprimante_id'];
+                $this->imprimante_name_2 = $rows_2[0]['imprimante_name'];
+                $this->compteur_name_2 = $rows_2[0]['compteur_name'];
+                $this->compteur_2 = $rows_2[0]['compteur'];
                 $résultat = $this->calcul($this->compteur, $this->compteur_2);
             }
             // on insère imprimante_id, imprimante_name, compteur_name, résultat dans la table ZDisplayPrintersCountersSummary
-            $query = "INSERT INTO ZDisplayPrintersCountersSummary (imprimante_id, imprimante_name, compteur_name, $nom_colonne) VALUES ({$this->imprimante_id}, {$this->imprimante_name_2}, {$this->compteur_name}, {$résultat})";
+            // on vérifie si l'impriante_id, le compteur_name n'existe pas déjà dans la table ZDisplayPrintersCountersSummary sinon on met à jour la ligne
+            $query = "SELECT id_imprimante, nom_imprimante, nom_compteur FROM ZDisplayPrintersCountersSummary WHERE id_imprimante = :imprimante_id AND nom_compteur = :compteur_name";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam(':imprimante_id', $this->imprimante_id, PDO::PARAM_INT);
+            $stmt->bindParam(':compteur_name', $this->compteur_name, PDO::PARAM_STR);
             $stmt->execute();
+            if ($stmt->rowCount() == 1) {
+                // on met à jour la ligne
+                $query = "UPDATE ZDisplayPrintersCountersSummary SET `$nom_colonne` = :resultat WHERE id_imprimante = :imprimante_id AND nom_compteur = :compteur_name";
+                $stmt = $this->pdo->prepare($query);
+                $stmt->bindParam(':imprimante_id', $this->imprimante_id, PDO::PARAM_INT);
+                $stmt->bindParam(':compteur_name', $this->compteur_name, PDO::PARAM_STR);
+                $stmt->bindParam(':resultat', $résultat, PDO::PARAM_INT);
+                $stmt->execute();
+            } else {
+                // on insère la ligne
+                $query = "INSERT INTO ZDisplayPrintersCountersSummary (id_imprimante, nom_imprimante, nom_compteur, `$nom_colonne`) VALUES (:imprimante_id, :imprimante_name, :compteur_name, :resultat)";
+                $stmt = $this->pdo->prepare($query);
+                $stmt->bindParam(':imprimante_id', $this->imprimante_id, PDO::PARAM_INT);
+                $stmt->bindParam(':imprimante_name', $this->imprimante_name_2, PDO::PARAM_STR);
+                $stmt->bindParam(':compteur_name', $this->compteur_name, PDO::PARAM_STR);
+                $stmt->bindParam(':resultat', $résultat, PDO::PARAM_INT);
+                $stmt->execute();
+            }
         }
     }
 
@@ -75,7 +106,8 @@ class CalMoisCons
         if (count($result) == 0) {
             // Création de la table
             $sql = "CREATE TABLE IF NOT EXISTS `$table` (
-                `id_imprimante` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `id_imprimante` INT UNSIGNED NOT NULL,
                 `nom_imprimante` VARCHAR(255) NOT NULL,
                 `nom_compteur` VARCHAR(255) NOT NULL,
                 PRIMARY KEY (`id`)
@@ -147,8 +179,11 @@ class CalMoisCons
     private function calcul($compteur, $compteur_2)
     {
         // on fait le calcul
-        $calcul = $compteur_2 - $compteur;
+        $calcul = $compteur - $compteur_2;
         // retourne le résultat
         return $calcul;
     }
 }
+
+$calMoisCons = new CalMoisCons($pdo);
+$calMoisCons->main();

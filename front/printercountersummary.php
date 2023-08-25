@@ -55,7 +55,7 @@ foreach ($values as $value) {
     $imprimanteId = $value['id'];
     $imprimanteItemId = $value['items_id'];
     echo '<tr>';
-    echo '<td><a href="http://10.67.104.105/glpi/plugins/PrinterCounterSummary/inc/FormCompteurMois.class.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
+    echo '<td><a href="http://10.67.104.105/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
 
     $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
     echo '<td><a href="http://' . $ipAddress . '/">' . $ipAddress . '</a></td>';
