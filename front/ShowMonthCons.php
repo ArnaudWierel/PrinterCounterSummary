@@ -30,10 +30,10 @@ $rows = $info->info();
 
 // pas la première et deuxième colonne
 
-// mettre entre des balises h2  le nom de l'imprimante
+echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
 echo '<h2>' . $info->getNom_Imprimante() . '</h2>';
 
-echo '<table id="example" class="display" style="width:100%">';
+echo '<table id="example" class="styled-table" style="width:100%">';
 if (!empty($rows)) {
     $firstRow = $rows[0];
     echo '<thead>';
@@ -59,8 +59,8 @@ echo '</table>';
 echo '<br>';
 
 // on fait un autre tableau dans lequel on affiche les compteurs et les totaux par colonne (mois)
-echo '<h2>Totaux par mois</h2>';
-echo '<table id="example2" class="display" style="width:100%">';
+echo '<h2 class="titre_total">Totaux par mois</h2>';
+echo '<table id="example2" class="styled-table" style="width:100%">';
 echo '<thead>';
 echo '<tr>';
 foreach ($firstRow as $key => $value) {
@@ -106,8 +106,6 @@ echo '$("#example").DataTable();';
 echo '$("#example2").DataTable();';
 echo '});';
 echo '</script>';
-
-echo '<div>';
 echo '</div>';
 Html::footer();
 
