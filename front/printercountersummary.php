@@ -12,47 +12,38 @@ ________________________________________________________________________________
 |___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-// glpi page for the plugin
-// Path: front\printercountersummary.php
-echo'<!DOCTYPE html>';
-echo '
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
-include_once ('../../../inc/includes.php');
+echo '<!DOCTYPE html>';
 
-// include the header of the page
+include_once('../../../inc/includes.php');
+
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
-
-// include a title for the page in order to test the plugin
+echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>';
+echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />';
+echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>';
 echo '<div class="center">';
-echo '<h2>'.__('Welcome to the Printer Counter Summary plugin!', 'printercountersummary').'</h2>';
-
-// Include the CSS file
+echo '<h2>' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
-// Make sure this path is correct
-include_once ("../inc/Nom.class.php");
-include_once ("../inc/IPAdress.class.php");
-include_once ("../inc/Date.class.php");
-include_once ("../inc/CompteurTot.class.php");
-include_once ("../inc/Total.class.php");
-include_once ("../PHP/save_data.php");
+include_once("../inc/Nom.class.php");
+include_once("../inc/IPAdress.class.php");
+include_once("../inc/Date.class.php");
+include_once("../inc/CompteurTot.class.php");
+include_once("../inc/Total.class.php");
 
-// Fetching the values of Nom
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
 $values = $nom->getValues();
+$itemsId = $nom->getItemsId();
 $ipValues = $ipAdress->getValues();
 
-// Fetching the last counters
 $compteurTot = new CompteurTot($pdo);
 $compteurs = $compteurTot->getCompteurs();
 
-// Displaying the values in a table
-echo '<table class="styled-table">';
+echo '<table class="styled-table" id="myTable">';
 echo '<thead>';
 echo '<tr>';
 echo '<th>' . $nom->getName() . '</th>';
-echo '<th>Adresse IP</th>'; // Add new column for IP Adress
+echo '<th>Adresse IP</th>';
 echo '<th>Dernière date de relevé</th>';
 echo '<th>Compteurs</th>';
 echo '<th>Totaux</th>';
@@ -62,17 +53,13 @@ echo '<tbody>';
 
 foreach ($values as $value) {
     $imprimanteId = $value['id'];
+    $imprimanteItemId = $value['items_id'];
     echo '<tr>';
-    echo '<td>' . $value['value'] . '</td>';
+    echo '<td><a href="http://10.67.100.111/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
 
-    // Display IP Adress
-    if (isset($ipValues[$value['id']])) {
-        echo '<td>' . $ipValues[$value['id']] . '</td>';
-    } else {
-        echo '<td>No IP Adress found</td>';
-    }
+    $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
+    echo '<td><a href="http://' . $ipAddress . '/">' . $ipAddress . '</a></td>';
 
-    // Perform additional queries with $value
     $date = new Date($pdo);
     $lastDate = $date->getLastDate($value['id']);
     if ($lastDate) {
@@ -81,54 +68,50 @@ foreach ($values as $value) {
         echo '<td>No Date found</td>';
     }
 
-     if ($lastDate) {
-        $derniereDate = "'" . $lastDate . "'";
-    } else {
-        $derniereDate = "null";
-    }
-
     if (isset($compteurs[$value['id']])) {
         echo '<td>';
-        $total = 0; // Variable pour calculer le total
+        $total = 0;
         foreach ($compteurs[$value['id']]['values'] as $index => $counter) {
-            echo $compteurs[$value['id']]['names'][$index] . ': ' . $counter . '<br>'; // Affichage du nom et de la valeur du compteur
-            $total += $counter; // Ajout de la valeur au total
+            echo $compteurs[$value['id']]['names'][$index] . ': ' . $counter . '<br>';
+            $total += $counter;
         }
         echo '</td>';
-        echo '<td>' . $total . '</td>'; // Affichage du total
+        echo '<td>' . $total . '</td>';
     } else {
         echo '<td colspan="2">No Counters found</td>';
     }
 
     echo '</tr>';
-
 }
 
 echo '</tbody>';
 echo '</table>';
-// quand on clique sur le bouton "Enregistrer" on initalise la fonction save_data
-echo '
+
+/*echo '
 <script>
     $(document).ready(function(){
         $("#saveDataButton").on("click", function() {
             $.ajax({
-                url: "../PHP/executeSaveData.php", // Remplacez par le chemin de votre script PHP
+                url: "../PHP/executeSaveData.php",
                 type: "POST",
                 success: function(response) {
-                    // Ici, vous pouvez gérer la réponse du serveur
                     console.log(response);
                 },
                 error: function(error) {
-                    // Ici, vous pouvez gérer les erreurs
                     console.log(error);
                 }
             });
         });
     });
 </script>';
-echo '<button id="saveDataButton">Save Data</button>';
+echo '<button id="saveDataButton">Save Data</button>';*/
+echo '
+<script>
+    $(document).ready(function() {
+        $("#myTable").DataTable();
+    });
+</script>';
 echo '</div>';
 
-// include the footer of the page
 Html::footer();
 ?>

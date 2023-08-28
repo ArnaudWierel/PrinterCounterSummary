@@ -1,13 +1,11 @@
 <?php
 
-// Assurez-vous que ce chemin d'accès est correct
-include ("../PHP/Connect_BDD.php");
-
 interface NomInterface {
     public function __construct($pdo);
     public function getName();
     public function getValues();
     public function getId();
+    public function getItemsId(); // Nouvelle méthode pour récupérer items_id
     public function setName($name);
     public function setValue($value);
     public function setId($id);
@@ -17,12 +15,14 @@ class Nom implements NomInterface {
     private $name;
     private $values;
     private $id;
+    private $itemsId; // Nouvelle propriété pour stocker items_id
 
     public function __construct($pdo) {
         $sql = "
-            SELECT `name`, `value`, `plugin_printercounters_items_recordmodels_id` AS `id`
-            FROM `glpi_plugin_printercounters_additionals_datas`
-            WHERE `name` = 'Nom'
+            SELECT additionals.`name`, additionals.`value`, additionals.`plugin_printercounters_items_recordmodels_id` AS `id`, recordmodels.`items_id`
+            FROM `glpi_plugin_printercounters_additionals_datas` AS additionals
+            LEFT JOIN `glpi_plugin_printercounters_items_recordmodels` AS recordmodels ON additionals.`plugin_printercounters_items_recordmodels_id` = recordmodels.`id`
+            WHERE additionals.`name` = 'Nom'
         ";
 
         $stmt = $pdo->prepare($sql);
@@ -33,6 +33,7 @@ class Nom implements NomInterface {
             $this->name = $rows[0]['name'];
             $this->values = $rows;
             $this->id = $rows[0]['id'];
+            $this->itemsId = $rows[0]['items_id']; // Stocke items_id
         }
     }
 
@@ -46,6 +47,10 @@ class Nom implements NomInterface {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getItemsId() {
+        return $this->itemsId; // Retourne items_id
     }
 
     public function setName($name) {
