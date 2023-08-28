@@ -1,6 +1,7 @@
 <?php
 
-interface NomInterface {
+interface NomInterface
+{
     public function __construct($pdo);
     public function getName();
     public function getValues();
@@ -11,13 +12,16 @@ interface NomInterface {
     public function setId($id);
 }
 
-class Nom implements NomInterface {
+class Nom implements NomInterface
+{
     private $name;
     private $values;
     private $id;
     private $itemsId; // Nouvelle propriété pour stocker items_id
+    private $names;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $sql = "
             SELECT additionals.`name`, additionals.`value`, additionals.`plugin_printercounters_items_recordmodels_id` AS `id`, recordmodels.`items_id`
             FROM `glpi_plugin_printercounters_additionals_datas` AS additionals
@@ -34,34 +38,57 @@ class Nom implements NomInterface {
             $this->values = $rows;
             $this->id = $rows[0]['id'];
             $this->itemsId = $rows[0]['items_id']; // Stocke items_id
+            $sql = "
+            SELECT name
+            FROM `glpi_printers`
+            WHERE id = :itemsId
+        ";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':itemsId', $this->itemsId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $rowz = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($rowz) {
+                $this->names = $rowz[0]['name'];
+            }
         }
+
+
     }
 
-    public function getName() {
-        return $this->name;
+    public function getName()
+    {
+        return $this->names;
     }
 
-    public function getValues() {
+    public function getValues()
+    {
         return $this->values;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getItemsId() {
+    public function getItemsId()
+    {
         return $this->itemsId; // Retourne items_id
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 }
