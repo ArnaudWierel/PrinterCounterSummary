@@ -9,7 +9,7 @@ ________________________________________________________________________________
 | \_|  |_|  |_|_| |_|\__\___|_|   \____/\___/ \__,_|_| |_|\__\___|_|  \____/ \__,_|_| |_| |_|_| |_| |_|\__,_|_|   \__, | |
 |                                                                                                                  __/ | |
 |                                                                                                                 |___/  |
-|___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
+|___________________________________Version 2.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 define('PRINTERCOUNTERSUMMARY_VERSION', '1.0.0');
 include_once('inc/printercountersummary.class.php');
@@ -20,13 +20,14 @@ include_once('inc/printercountersummary.class.php');
  *
  * @return void
  */
-function plugin_init_printercountersummary() {
+function plugin_init_printercountersummary()
+{
    global $PLUGIN_HOOKS;
 
    //required!
-    $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
-    $PLUGIN_HOOKS['menu_toadd']['printercountersummary'] = array('tools' => 'PluginPrinterCounterSummary');
-    Plugin::registerClass('PluginPrinterCounterSummary');
+   $PLUGIN_HOOKS['csrf_compliant']['PrinterCounterSummary'] = true;
+   $PLUGIN_HOOKS['menu_toadd']['printercountersummary'] = array('tools' => 'PluginPrinterCounterSummary');
+   Plugin::registerClass('PluginPrinterCounterSummary');
    //some code here, like call to Plugin::registerClass(), populating PLUGIN_HOOKS, ...
 }
 
@@ -35,21 +36,22 @@ function plugin_init_printercountersummary() {
  *
  * @return array
  */
-function plugin_version_printercountersummary() {
+function plugin_version_printercountersummary()
+{
    return [
-      'name'           => 'PrinterCounterSummary',
-      'version'        => '1.0.0',
-      'author'         => 'Snayto (Arnaud WIEREL)',
-      'license'        => 'GLPv3',
-      'homepage'       => 'https://github.com/ArnaudWierel/PrinterCounterSummary',
-      'requirements'   => [
-        'glpi'   => [
+      'name' => 'PrinterCounterSummary',
+      'version' => '1.0.0',
+      'author' => 'Snayto (Arnaud WIEREL)',
+      'license' => 'GLPv3',
+      'homepage' => 'https://github.com/ArnaudWierel/PrinterCounterSummary',
+      'requirements' => [
+         'glpi' => [
             'min' => '10.0.2'
-        ],
-        'php'    => [
-                'min' => '7.4',
-                'max' => '8.19'
-        ]
+         ],
+         'php' => [
+            'min' => '7.4',
+            'max' => '8.19'
+         ]
       ]
    ];
 }
@@ -59,12 +61,13 @@ function plugin_version_printercountersummary() {
  *
  * @return boolean
  */
-function plugin_printercountersummary_check_prerequisites() {
+function plugin_printercountersummary_check_prerequisites()
+{
    // check the glpi version
-    if (version_compare(GLPI_VERSION, '10.0.2', 'lt') || version_compare(PHP_VERSION, '7.4', 'lt')) {
-        echo "This plugin requires GLPI 10.0.2 and PHP between 7.4 and 8.19";
-        return false;
-    }
+   if (version_compare(GLPI_VERSION, '10.0.2', 'lt') || version_compare(PHP_VERSION, '7.4', 'lt')) {
+      echo "This plugin requires GLPI 10.0.2 and PHP between 7.4 and 8.19";
+      return false;
+   }
    return true;
 }
 
@@ -76,7 +79,8 @@ function plugin_printercountersummary_check_prerequisites() {
  *
  * @return boolean
  */
-function plugin_printercountersummary_check_config($verbose = false) {
+function plugin_printercountersummary_check_config($verbose = false)
+{
    if (true) { // Your configuration check
       return true;
    }
@@ -92,7 +96,8 @@ function plugin_printercountersummary_check_config($verbose = false) {
  *
  * @return array
  */
-function plugin_printercountersummary_options() {
+function plugin_printercountersummary_options()
+{
    return [
       Plugin::OPTION_AUTOINSTALL_DISABLED => true,
    ];

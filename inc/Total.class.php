@@ -9,11 +9,13 @@ ________________________________________________________________________________
 | \_|  |_|  |_|_| |_|\__\___|_|   \____/\___/ \__,_|_| |_|\__\___|_|  \____/ \__,_|_| |_| |_|_| |_| |_|\__,_|_|   \__, | |
 |                                                                                                                  __/ | |
 |                                                                                                                 |___/  |
-|___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
+|___________________________________Version 2.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-class Total {
-    public function addCompteurs($compteurs) {
+class Total
+{
+    public function addCompteurs($compteurs)
+    {
         $total = 0;
         foreach ($compteurs as $imprimante) {
             foreach ($imprimante['values'] as $value) {

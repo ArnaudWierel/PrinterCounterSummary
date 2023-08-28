@@ -9,17 +9,20 @@ ________________________________________________________________________________
 | \_|  |_|  |_|_| |_|\__\___|_|   \____/\___/ \__,_|_| |_|\__\___|_|  \____/ \__,_|_| |_| |_|_| |_| |_|\__,_|_|   \__, | |
 |                                                                                                                  __/ | |
 |                                                                                                                 |___/  |
-|___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
+|___________________________________Version 2.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 
-class CompteurTot {
+class CompteurTot
+{
     private $pdo;
-    
-    public function __construct($pdo) {
+
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
-    
-    public function getCompteurs() {
+
+    public function getCompteurs()
+    {
         $sql = "
             SELECT r.`plugin_printercounters_items_recordmodels_id` AS id, r.`date`, c.`value`, ct.`name`
             FROM `glpi_plugin_printercounters_records` r
@@ -54,7 +57,7 @@ class CompteurTot {
                 $compteurs[$id]['names'][] = $row['name'];
             }
         }
-        
+
         return $compteurs;
     }
 }
