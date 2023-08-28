@@ -20,8 +20,8 @@ Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['P
 echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>';
 echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />';
 echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>';
-echo '<div class="center">';
-echo '<h2>' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
+echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
+echo '<h2 class="main-title">' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
 include_once("../inc/Nom.class.php");
@@ -55,7 +55,7 @@ foreach ($values as $value) {
     $imprimanteId = $value['id'];
     $imprimanteItemId = $value['items_id'];
     echo '<tr>';
-    echo '<td><a href="http://10.67.100.111/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
+    echo '<td><a href="http://10.67.104.105/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">' . $value['value'] . '</a></td>';
 
     $ipAddress = $ipAdress->getIPByPrinterId($imprimanteItemId);
     echo '<td><a href="http://' . $ipAddress . '/">' . $ipAddress . '</a></td>';

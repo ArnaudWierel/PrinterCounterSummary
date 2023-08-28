@@ -9,7 +9,7 @@ ________________________________________________________________________________
 | \_|  |_|  |_|_| |_|\__\___|_|   \____/\___/ \__,_|_| |_|\__\___|_|  \____/ \__,_|_| |_| |_|_| |_| |_|\__,_|_|   \__, | |
 |                                                                                                                  __/ | |
 |                                                                                                                 |___/  |
-|___________________________________Version 1.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
+|___________________________________Version 2.0.0 by Snayto (Arnaud WIEREL) @2023________________________________________|
 */
 include_once('inc/printercountersummary.class.php');
 
@@ -18,15 +18,16 @@ include_once('inc/printercountersummary.class.php');
  *
  * @return boolean
  */
-function plugin_printercountersummary_install() {
+function plugin_printercountersummary_install()
+{
    global $DB;
 
    $table = "votre_table";
    // Crée la table pour stocker les informations
    $query = "DROP TABLE IF EXISTS `$table`";
-   $DB->query($query) or die("Erreur lors de la suppression de la table $table : ".$DB->error());
-   
-$query = "CREATE TABLE IF NOT EXISTS `$table` (
+   $DB->query($query) or die("Erreur lors de la suppression de la table $table : " . $DB->error());
+
+   $query = "CREATE TABLE IF NOT EXISTS `$table` (
       `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `imprimante_id` INT UNSIGNED NOT NULL,
       `imprimante_name` VARCHAR(255) NOT NULL,
@@ -38,7 +39,7 @@ $query = "CREATE TABLE IF NOT EXISTS `$table` (
       PRIMARY KEY (`id`)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1";
 
-   $DB->query($query) or die("Erreur lors de la création de la table $table : ".$DB->error());
+   $DB->query($query) or die("Erreur lors de la création de la table $table : " . $DB->error());
 
    return true;
 }
@@ -48,12 +49,13 @@ $query = "CREATE TABLE IF NOT EXISTS `$table` (
  *
  * @return boolean
  */
-function plugin_printercountersummary_uninstall() {
+function plugin_printercountersummary_uninstall()
+{
    global $DB;
 
    // Supprime la table
    $table = "votre_table";
    $query = "DROP TABLE IF EXISTS `$table`";
-   $DB->query($query) or die("Erreur lors de la suppression de la table $table : ".$DB->error());
+   $DB->query($query) or die("Erreur lors de la suppression de la table $table : " . $DB->error());
    return true;
 }
