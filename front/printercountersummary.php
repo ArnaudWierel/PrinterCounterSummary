@@ -21,7 +21,7 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min
 echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />';
 echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>';
 echo '<div class="center">';
-echo '<h2>' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
+echo '<h2 class="main-title">' . __('Bienvenue sur le plugin Printer Counter Summary !', 'printercountersummary') . '</h2>';
 echo '<link rel="stylesheet" type="text/css" href="printercountersummary.css">';
 
 include_once("../inc/Nom.class.php");
