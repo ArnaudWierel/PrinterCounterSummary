@@ -49,7 +49,8 @@ class Nom implements NomInterface
             FROM `glpi_printers`
             WHERE id = :imprimanteId
         ";
-
+        // afficher la requete
+        echo $sql;
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':imprimanteId', $imprimanteId, PDO::PARAM_INT);
         $stmt->execute();
