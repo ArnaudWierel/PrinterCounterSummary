@@ -43,21 +43,17 @@ class Nom implements NomInterface
 
     public function getNames($pdo, $imprimanteId)
     {
-        var_dump($imprimanteId);
         $sql = "
             SELECT name FROM `glpi_printers` WHERE id = $imprimanteId
         ";
-        // afficher la requete
-        echo $sql;
         // preparer la requete
         $stmt = $pdo->prepare($sql);
         // executer la requete
         $stmt->execute();
         // recuperer les resultats
         $ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // afficher les resultats
-        var_dump($ligne);
         if ($ligne) {
+            echo $ligne[0]['name'];
             $this->names = $ligne[0]['name'];
         }
         return $this->names;
