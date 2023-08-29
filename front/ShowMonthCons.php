@@ -37,7 +37,6 @@ $rows = $info->info();
 echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
 echo '<h2>';
 $nom->getNames($pdo, $itemsId);
-echo 'oui';
 echo '</h2>';
 
 echo '<table id="example" class="styled-table" style="width:100%">';
