@@ -26,7 +26,6 @@ echo '<link rel="stylesheet" type="text/css" href="showmonthcons.css">';
 
 $id = $_GET['id'];
 $itemsId = $_GET['itemid'];
-echo $itemsId;
 $nom = new Nom($pdo);
 $info = new ShowMonthCons($pdo);
 $info->getID($id);
