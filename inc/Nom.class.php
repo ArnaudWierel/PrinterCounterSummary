@@ -54,9 +54,7 @@ class Nom implements NomInterface
         $ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($ligne) {
             echo $ligne[0]['name'];
-            $this->names = $ligne[0]['name'];
         }
-        return $this->names;
     }
     public function getName()
     {
