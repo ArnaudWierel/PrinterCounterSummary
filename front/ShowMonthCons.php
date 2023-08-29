@@ -16,6 +16,7 @@ echo '<!DOCTYPE html>';
 
 include_once('../../../inc/includes.php');
 include_once("../inc/ShowMonthCons.class.php");
+include_once("../inc/Nom.class.php");
 
 Html::header(__('Printer Counter Summary', 'printercountersummary'), $_SERVER['PHP_SELF'], "tools", "PluginPrinterCounterSummary", "menu");
 echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>';
@@ -24,14 +25,18 @@ echo '<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></
 echo '<link rel="stylesheet" type="text/css" href="showmonthcons.css">';
 
 $id = $_GET['id'];
+$printerName = isset($_GET['printerName']) ? urldecode($_GET['printerName']) : 'Unknown Printer';
+
+// Use $printerName as needed in your code
 $info = new ShowMonthCons($pdo);
 $info->getID($id);
+
 $rows = $info->info();
 
 // pas la première et deuxième colonne
 
 echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
-echo '<h2>' . $info->getNom_Imprimante() . '</h2>';
+echo '<h2>' . $printerName . '</h2>';
 
 echo '<table id="example" class="styled-table" style="width:100%">';
 if (!empty($rows)) {
