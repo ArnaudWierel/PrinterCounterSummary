@@ -55,7 +55,7 @@ foreach ($values as $value) {
     $imprimanteId = $value['id'];
     $imprimanteItemId = $value['items_id'];
     echo '<tr>';
-    echo '<td><a href="http://10.67.100.111/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '">';
+    echo '<td><a href="http://10.67.100.111/glpi/plugins/PrinterCounterSummary/front/ShowMonthCons.php?id=' . $value['id'] . '&itemid=' . $value['items_id'] . '">';
     $nom->getNames($pdo, $imprimanteItemId);
     echo '</a></td>';
 
