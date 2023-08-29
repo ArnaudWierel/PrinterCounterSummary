@@ -33,7 +33,6 @@ include_once("../inc/Total.class.php");
 $nom = new Nom($pdo);
 $ipAdress = new IPAdress($pdo);
 $values = $nom->getValues();
-$names = $nom->getNames();
 $itemsId = $nom->getItemsId();
 $ipValues = $ipAdress->getValues();
 
