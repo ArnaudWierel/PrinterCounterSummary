@@ -38,27 +38,25 @@ class Nom implements NomInterface
             $this->values = $rows;
             $this->id = $rows[0]['id'];
             $this->itemsId = $rows[0]['items_id']; // Stocke items_id
-            $sql = "
-            SELECT name
-            FROM `glpi_printers`
-            WHERE id = :itemsId
-        ";
-
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':itemsId', $this->itemsId, PDO::PARAM_INT);
-            $stmt->execute();
-
-            $rowz = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($rowz) {
-                $this->names = $rowz;
-            }
         }
-
-
     }
 
-    public function getNames()
+    public function getNames($pdo, $imprimanteId)
     {
+        $sql = "
+            SELECT name
+            FROM `glpi_printers`
+            WHERE id = :imprimanteId
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':imprimanteId', $imprimanteId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $rowz = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($rowz) {
+            $this->names = $rowz[0]['name'];
+        }
         return $this->names;
     }
     public function getName()
