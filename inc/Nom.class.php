@@ -53,9 +53,11 @@ class Nom implements NomInterface
         $stmt->bindParam(':imprimanteId', $imprimanteId, PDO::PARAM_INT);
         $stmt->execute();
 
-        $rowz = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($rowz) {
-            $this->names = $rowz[0]['name'];
+        $ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // ecrire dans la console du navigateur
+        var_dump($ligne);
+        if ($ligne) {
+            $this->names = $ligne[0]['name'];
         }
         return $this->names;
     }
