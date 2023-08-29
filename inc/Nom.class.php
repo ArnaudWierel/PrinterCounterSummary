@@ -50,7 +50,7 @@ class Nom implements NomInterface
 
             $rowz = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($rowz) {
-                $this->names = $rowz[0]['name'];
+                $this->names = $rowz;
             }
         }
 
