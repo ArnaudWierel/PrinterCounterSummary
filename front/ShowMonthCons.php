@@ -35,7 +35,7 @@ $rows = $info->info();
 // pas la première et deuxième colonne
 
 echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
-echo '<h2>' . $nom->getNames($pdo, $ItemId) . '</h2>';
+echo '<h2>' . $nom->getNames($pdo, $itemId) . '</h2>';
 
 echo '<table id="example" class="styled-table" style="width:100%">';
 if (!empty($rows)) {
