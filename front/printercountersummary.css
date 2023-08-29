@@ -66,6 +66,8 @@ a:link {
     color: #789bc4;
 }
 
-input{
-    color: #000000;
+/* Appliquer un style lorsque le texte est sélectionné */
+::selection {
+  background-color: black; /* Couleur d'arrière-plan de la sélection */
+  color: white; /* Couleur du texte de la sélection */
 }
