@@ -29,6 +29,7 @@ $itemsId = $_GET['itemid'];
 $nom = new Nom($pdo);
 $info = new ShowMonthCons($pdo);
 $info->getID($id);
+
 $rows = $info->info();
 
 // pas la première et deuxième colonne
