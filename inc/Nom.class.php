@@ -47,12 +47,13 @@ class Nom implements NomInterface
         $sql = "
             SELECT name
             FROM `glpi_printers`
-            WHERE id = :imprimanteId
+            WHERE id = $imprimanteId
         ";
         // afficher la requete
         echo $sql;
+        // preparer la requete
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':imprimanteId', $imprimanteId, PDO::PARAM_INT);
+        // executer la requete
         $stmt->execute();
 
         $ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
