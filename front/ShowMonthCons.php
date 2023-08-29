@@ -26,7 +26,9 @@ echo '<link rel="stylesheet" type="text/css" href="showmonthcons.css">';
 
 $id = $_GET['id'];
 $itemsId = $_GET['itemid'];
+echo $itemsId;
 $nom = new Nom($pdo);
+$nom_print = $nom->getNames($pdo, $itemsId);
 $info = new ShowMonthCons($pdo);
 $info->getID($id);
 
@@ -35,7 +37,7 @@ $rows = $info->info();
 // pas la première et deuxième colonne
 
 echo '<div class="center futuristic-container">'; // Ajoutez une classe de conteneur
-echo '<h2>' . $nom->getNames($pdo, $itemId) . '</h2>';
+echo '<h2>' . $nom_print . '</h2>';
 
 echo '<table id="example" class="styled-table" style="width:100%">';
 if (!empty($rows)) {
