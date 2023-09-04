@@ -196,10 +196,13 @@ class CalMoisCons
     {
         // on fait le calcul
         $calcul = $compteur - $compteur_2;
+        if ($calcul < 0) {
+            $calcul = 0;
+        }
         // retourne le résultat
         return $calcul;
     }
 }
 
-$calMoisCons = new CalMoisCons($pdo);
+$calMoisCons = new CalMoisCons();
 $calMoisCons->main();
