@@ -48,7 +48,7 @@ class CalMoisCons
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rows as $row) {
             $this->id_relevé_1 = $row['id_relevé'];
-            echo $row['imprimante_name'] . "<br>";
+            echo $row['imprimante_name'] . $row['compteur_name'] . $row['compteur'] . "<br>";
         }
 
         // puis on lui enlève 1
