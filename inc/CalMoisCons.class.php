@@ -196,7 +196,7 @@ class CalMoisCons
     {
         // on fait le calcul
         $calcul = $compteur - $compteur_2;
-        echo $calcul . $compteur . $compteur_2 . "<br>";
+        echo $compteur . "-" . $compteur_2 . "<br>";
         if ($calcul < 0) {
             $calcul = 0;
         }
