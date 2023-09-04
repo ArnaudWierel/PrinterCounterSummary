@@ -21,7 +21,7 @@ class CalMoisCons
     private $compteur_name;
     private $compteur;
     private $id_relevé_1;
-    private $pdo;
+    public $pdo;
     private $id_relevé_2;
     private $imprimante_id_2;
     private $imprimante_name_2;
