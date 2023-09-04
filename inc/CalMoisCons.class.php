@@ -13,7 +13,7 @@ ________________________________________________________________________________
 */
 
 // class qui a pour fonction de lire la table "votre_table" et de faire le calcul des compteurs par imprimante et par mois
-include '../PHP/Connect_BDD.php';
+
 class CalMoisCons
 {
     private $id_relevé;
@@ -29,8 +29,9 @@ class CalMoisCons
     private $compteur_2;
     private $table = 'ZDisplayPrintersCountersSummary';
 
-    public function __construct($pdo)
+    public function __construct()
     {
+        include '../PHP/Connect_BDD.php';
         $this->pdo = $pdo;
     }
 
@@ -107,6 +108,7 @@ class CalMoisCons
                 $stmt->execute();
             }
         }
+        echo "Data saved successfully.";
     }
 
     private function CreateNewTable($table)

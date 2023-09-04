@@ -77,7 +77,5 @@ class DataSaver
     }
 }
 
-$dataSaver = new DataSaver();
-$dataSaver->saveData();
 
 ?>
