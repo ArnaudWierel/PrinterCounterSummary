@@ -48,8 +48,7 @@ class CalMoisCons
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rows as $row) {
             $this->id_relevé_1 = $row['id_relevé'];
-            // affiche le tableau associatif
-            print_r($rows);
+            echo $row['imprimante_name'] . "<br>";
         }
 
         // puis on lui enlève 1
