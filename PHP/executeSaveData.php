@@ -13,8 +13,8 @@ ________________________________________________________________________________
 */
 include_once("save_data.php"); // Changez cela en fonction de l'emplacement de votre deuxième fichier
 include_once("../inc/CalMoisCons.class.php"); // Changez cela en fonction de l'emplacement de votre deuxième fichier
-//$dataSaver = new DataSaver();
-//$dataSaver->saveData();
+$dataSaver = new DataSaver();
+$dataSaver->saveData();
 $calMoisCons = new CalMoisCons();
 $calMoisCons->main();
 
