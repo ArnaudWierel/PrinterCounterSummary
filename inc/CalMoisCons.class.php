@@ -13,7 +13,7 @@ ________________________________________________________________________________
 */
 
 // class qui a pour fonction de lire la table "votre_table" et de faire le calcul des compteurs par imprimante et par mois
-require_once '../PHP/Connect_BDD.php';
+include '../PHP/Connect_BDD.php';
 class CalMoisCons
 {
     private $id_relevé;
